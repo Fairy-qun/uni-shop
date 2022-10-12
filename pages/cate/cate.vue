@@ -1,5 +1,7 @@
 <template>
 	<view>
+		<!-- 自定义搜索区域 -->
+		<my-serach @click="gotoSerach"></my-serach>
 		<view class="scroolbox">
 			<!-- 左侧滑动区域 -->
 			<scroll-view class="leftscroll" scroll-y="true" :style="{height: wh + 'px'}">
@@ -46,7 +48,7 @@
 		},
 		onLoad() {
 			const data = uni.getSystemInfoSync()
-			this.wh = data.windowHeight
+			this.wh = data.windowHeight - 50
 			this.getCateList()
 		},
 		methods: {
@@ -72,6 +74,12 @@
 				console.log(val);
 				uni.navigateTo({
 					url: '/subpkg/goods_list/goods_list?cid=' + val.cat_id
+				})
+			},
+			// 点击搜索组件跳转到搜索页面
+			gotoSerach() {
+				uni.navigateTo({
+					url: '/subpkg/search/search'
 				})
 			}
 		}

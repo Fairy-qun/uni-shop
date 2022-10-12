@@ -1,5 +1,9 @@
 <template>
 	<view>
+		<!-- 自定义搜索区域 -->
+		<view class="topstick">
+			<my-serach @click="gotoSearch"></my-serach>
+		</view>
 		<!-- 轮播图区域 -->
 		<swiper :indicator-dots="true" :autoplay="true" :interval="3000" :duration="1000" circular="true">
 			<swiper-item v-for="(item,index) in swiperList" :key="index">
@@ -57,6 +61,11 @@
 		// 	this.getSwiperList()
 		// },
 		methods: {
+			gotoSearch() {
+				uni.navigateTo({
+					url: '/subpkg/search/search'
+				})
+			},
 			async getSwiperList() {
 				const {
 					data: res
@@ -136,5 +145,10 @@
 			flex-wrap: wrap;
 			justify-content: space-around;
 		}
+	}
+	.topstick {
+		position: sticky;
+		top: 0;
+		z-index: 999;
 	}
 </style>
