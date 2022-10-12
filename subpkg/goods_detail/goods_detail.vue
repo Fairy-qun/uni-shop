@@ -1,12 +1,11 @@
 <template>
 	<view>
-		<text>商品详情页---{{goods_id}}</text>
+		<text>商品详情页</text>
 	</view>
 </template>
 
 <script>
 	export default {
-		props: ['goods_id'],
 		data() {
 			return {
 				
