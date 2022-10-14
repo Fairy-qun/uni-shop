@@ -35,6 +35,7 @@
 </template>
 
 <script>
+	import {mapState,mapMutations,mapGetters} from 'vuex'
 	export default {
 		data() {
 			return {
@@ -47,7 +48,7 @@
 						}, {
 							icon: 'cart',
 							text: '购物车',
-							info: 1
+							info: 0
 						}],
 					    buttonGroup: [{
 					      text: '加入购物车',
@@ -62,6 +63,28 @@
 					    ]
 			};
 		},
+		computed: {
+			...mapGetters('my_cart',['total'])
+		},
+		watch: {
+			// 监听加入购物车的数量
+			// total(newValue) {
+			// 	const findResult = this.options.find((x) => x.text === '购物车')
+			// 	if (findResult) {
+			// 		// 动态为购物车数据赋新值
+			// 		findResult.info = newValue
+			// 	}
+			// }
+			total: {
+				handler(newValue) {
+					const findResult = this.options.find(x => x.text === '购物车')
+					if (findResult) {
+						findResult.info = newValue
+					}
+				},
+				immediate: true
+			}
+		},
 		onLoad(options) {
 			// console.log(options);
 			// 获取商品id
@@ -70,6 +93,23 @@
 			this.getGoodsDetail(goodsId)
 		},
 		methods: {
+			...mapMutations('my_cart',['addToCart']),
+			buttonClick(e) {
+				// console.log(e);
+				if (e.content.text === '加入购物车') {
+					// 包装一个商品对象
+					const goods = {
+						goods_id: this.goodsInfo.goods_id,
+						goods_name: this.goodsInfo.goods_name,
+						goods_price: this.goodsInfo.goods_price,
+						goods_count: 1,
+						goods_small_logo: this.goodsInfo.goods_small_logo,
+						goods_state: true
+					}
+					// 调用映射过来的addToCart方法，将数据加入到购物车
+					this.addToCart(goods)
+				}
+			},
 			async getGoodsDetail(goodsId) {
 				// console.log(goodsId);
 				// 发起数据请求

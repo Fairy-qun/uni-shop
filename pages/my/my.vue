@@ -5,7 +5,9 @@
 </template>
 
 <script>
+	import my_minx from '../../mixins/tabbar-badge.js'
 	export default {
+		mixins: [my_minx],
 		data() {
 			return {
 				
