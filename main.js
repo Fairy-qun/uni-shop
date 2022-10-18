@@ -14,6 +14,13 @@ $http.beforeRequest = function (options) {
   uni.showLoading({
     title: '数据加载中...',
   })
+  // 判断当前请求的是否有权限我接口
+  if (options.url.indexOf('/my/') !== -1) {
+	  // 添加请求头进行身份认证
+	  options.header = {
+		  Authorization: store.state.my_user.token
+	  }
+  }
 }
 
 // 请求完成之后做一些事情

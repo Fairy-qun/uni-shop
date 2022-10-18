@@ -59,7 +59,7 @@
 		"requiredPrivateInfos": ["chooseAddress"],
         "permission" : {
             "scope.userLocation" : {
-                "desc" : ""
+                "desc" : "用于获取用户位置信息"
             }
         }
     },
